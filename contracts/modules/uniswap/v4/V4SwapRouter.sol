@@ -9,7 +9,7 @@ import {Currency} from '@uniswap/v4-core/src/types/Currency.sol';
 
 /// @title Router for Uniswap v4 Trades
 abstract contract V4SwapRouter is V4Router, Permit2Payments {
-    constructor(address _poolManager) V4Router(IPoolManager(_poolManager)) {}
+    constructor(address _poolManager, uint128 _feeRate, address _feeRecipient) V4Router(IPoolManager(_poolManager), _feeRate, _feeRecipient) {}
 
     function _pay(Currency token, address payer, uint256 amount) internal override {
         payOrPermit2Transfer(Currency.unwrap(token), payer, address(poolManager), amount);
